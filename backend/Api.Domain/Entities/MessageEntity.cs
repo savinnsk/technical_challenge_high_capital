@@ -12,6 +12,6 @@ namespace Api.Domain.Entities
 
         public string Role { get; set; } // "user" ou "assistant"
         public string Content { get; set; }
-        public DateTime Timestamp { get; set; }
+
     }
 }
