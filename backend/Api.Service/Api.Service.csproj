@@ -5,9 +5,8 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Api.Domain\Domain.csproj" />
-    <ProjectReference Include="..\Api.Data\Data.csproj" />
-    <ProjectReference Include="..\Api.Infrastructure\Infrastructure.csproj" />
+    <ProjectReference Include="..\Api.Domain\Api.Domain.csproj" />
+    <ProjectReference Include="..\Api.Data\Api.Data.csproj" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="AutoMapper" Version="13.0.1" />
