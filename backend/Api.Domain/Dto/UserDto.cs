@@ -1,6 +1,5 @@
 using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
-using Swashbuckle.AspNetCore.Annotations;
 using System.ComponentModel;
 
 namespace Api.Domain.Dto
@@ -22,7 +21,7 @@ namespace Api.Domain.Dto
 
         [Required]
         [MinLength(5)]
-        [SwaggerSchema("12345")]
+        [DefaultValue("12345")]
         public string Password { get; set; }
     }
 }
