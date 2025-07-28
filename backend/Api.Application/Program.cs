@@ -1,5 +1,6 @@
 using Api.Aplication.Configs;
 using Api.CrossCutting.DependencyInjection;
+using application.Configs;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -9,20 +10,8 @@ new Swagger(builder.Services, builder.Configuration).Configure();
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 
-InjectAllDependencies.Configure(builder.Services);
+InjectAllDependencies.Configure(builder.Services, config.AuthToken());
 
-var app = builder.Build();
+var app = new App(builder);
 
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
-
-app.UseAuthorization();
-
-app.MapControllers();
-
-app.Run();
-
-
+app.Startup().Run();
