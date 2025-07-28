@@ -1,11 +1,17 @@
-public class Message
+namespace Api.Domain.Entities
 {
-    public Guid Id { get; set; }
 
-    public Guid ChatbotId { get; set; }
-    public Chatbot Chatbot { get; set; }
 
-    public string Role { get; set; } // "user" ou "assistant"
-    public string Content { get; set; }
-    public DateTime Timestamp { get; set; }
+
+    public class Message : BaseEntity
+    {
+        public Guid Id { get; set; }
+
+        public Guid ChatbotId { get; set; }
+        public Chatbot Chatbot { get; set; }
+
+        public string Role { get; set; } // "user" ou "assistant"
+        public string Content { get; set; }
+        public DateTime Timestamp { get; set; }
+    }
 }
