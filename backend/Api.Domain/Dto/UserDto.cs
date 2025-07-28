@@ -1,6 +1,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
 using Swashbuckle.AspNetCore.Annotations;
+using System.ComponentModel;
 
 namespace Api.Domain.Dto
 {
@@ -11,11 +12,12 @@ namespace Api.Domain.Dto
         public Guid Id { get; set; }
 
         [Required]
-        [SwaggerSchema("John Doe")]
+        [DefaultValue("jonh doe")]
         public string Name { get; set; }
 
         [Required]
         [EmailAddress]
+        [DefaultValue("jonh@mail.com")]
         public string Email { get; set; }
 
         [Required]

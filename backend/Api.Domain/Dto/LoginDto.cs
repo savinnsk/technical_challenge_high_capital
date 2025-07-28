@@ -6,12 +6,12 @@ namespace Api.Domain.Dto
     public class LoginDto
     {
         [Required]
-        [DefaultValue("1234")]
+        [DefaultValue("12345")]
         public required string Password { get; set; }
 
         [Required]
         [EmailAddress]
-        [DefaultValue("savio@mail.com")]
+        [DefaultValue("jonh@mail.com")]
         public required string Email { get; set; }
     }
 }
