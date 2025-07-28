@@ -1,3 +1,13 @@
+## Configurações Banco de dados
+
+````sh
+// rodar migrations e criar banco
+dotnet ef database update --project Api.Data
+
+````
+
+
+
 ## ✅ Requisitos Funcionais (RF)
 
 - [ ] **RF01 - Cadastro de Chatbot**<br>
