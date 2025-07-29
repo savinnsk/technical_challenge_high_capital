@@ -6,8 +6,6 @@ namespace Api.Domain.Interfaces.Services
 {
     public interface IAuthorizationService
     {
-        Task<object>Login(LoginDto loginDto);
-
-        
+        Task<object> Login(LoginDto loginDto);
     }
 }

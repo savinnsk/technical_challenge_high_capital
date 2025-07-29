@@ -1,8 +1,11 @@
 ## Configurações Banco de dados
 
 ````sh
-// rodar migrations e criar banco
+# rodar migrations e criar banco
 dotnet ef database update --project Api.Data
+
+# rodar projeto
+dotnet run --project .\Api.Application\Api.Aplication.csproj
 
 ````
 

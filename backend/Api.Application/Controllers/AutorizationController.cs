@@ -13,32 +13,53 @@ namespace Api.Aplication.Controllers
         private readonly IAuthorizationService _authService;
 
 
-        public  AuthorizationController(IAuthorizationService authService){
-                _authService = authService;
+        public AuthorizationController(IAuthorizationService authService)
+        {
+            _authService = authService;
         }
 
 
         [HttpPost]
-           public async Task<IActionResult> Login([FromBody]LoginDto loginDto ){
+        public async Task<IActionResult> Login([FromBody] LoginDto loginDto)
+        {
 
-            if (!ModelState.IsValid){
+            if (!ModelState.IsValid)
+            {
                 return BadRequest(ModelState);
             }
-            
-            try {
+
+            try
+            {
 
                 var result = await this._authService.Login(loginDto);
 
-                if(result == null ){
+                if (result == null)
+                {
                     return NotFound();
                 }
                 return Ok(result);
 
-            }catch(ArgumentException ex){
-                return StatusCode((int) HttpStatusCode.InternalServerError, ex.Message);
+            }
+            catch (ArgumentException ex)
+            {
+                return StatusCode((int)HttpStatusCode.InternalServerError, ex.Message);
             }
 
-       }
+        }
+
+        [Microsoft.AspNetCore.Authorization.Authorize]
+        [HttpGet("me")]
+        public IActionResult WhoAmI()
+        {
+            var user = HttpContext.User;
+            return Ok(new
+            {
+                Authenticated = user.Identity?.IsAuthenticated,
+                Name = user.Identity?.Name,
+                Claims = user.Claims.Select(c => new { c.Type, c.Value })
+            });
+        }
+
 
     }
 }
