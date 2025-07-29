@@ -9,6 +9,8 @@ namespace Api.CrossCutting.Mappings
         public EntityToDtoProfile()
         {
             CreateMap<UserDto, UserEntity>().ReverseMap();
+            CreateMap<MessageDto, MessageEntity>().ReverseMap();
+            CreateMap<ChatbotDto, ChatbotEntity>().ReverseMap();
         }
     }
 }

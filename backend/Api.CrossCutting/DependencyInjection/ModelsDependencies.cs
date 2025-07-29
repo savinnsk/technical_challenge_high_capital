@@ -6,12 +6,16 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace Api.CrossCutting.DependencyInjection
 {
-    public class UsersDependencies
+    public class ModelsDependencies
     {
         public static void Inject(IServiceCollection serviceCollection)
         {
             serviceCollection.AddTransient<IUserRepository, UserRepository>();
             serviceCollection.AddTransient<IUserService, UserService>();
+            serviceCollection.AddTransient<IChatbotRepository, ChatbotRepository>();
+            serviceCollection.AddTransient<IChatbotService, ChatbotService>();
+            serviceCollection.AddTransient<IMessageRepository, MessageRepository>();
+            serviceCollection.AddTransient<IMessageService, MessageService>();
         }
     }
 }

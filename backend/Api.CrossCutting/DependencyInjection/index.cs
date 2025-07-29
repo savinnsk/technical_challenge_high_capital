@@ -12,7 +12,7 @@ namespace Api.CrossCutting.DependencyInjection
         {
             serviceCollection.AddScoped(typeof(IRepository<>), typeof(BaseRepository<>));
             DataBaseDependencies.Inject(serviceCollection);
-            UsersDependencies.Inject(serviceCollection);
+            ModelsDependencies.Inject(serviceCollection);
             AuthorizationDependencies.Inject(serviceCollection,tokenConfiguration);
             AutoMapperDependencies.Inject(serviceCollection);
         }
