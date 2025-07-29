@@ -1,7 +1,7 @@
 namespace Api.Domain.Entities
 {
 
-    public class Chatbot
+    public class ChatbotEntity : BaseEntity
     {
         public Guid Id { get; set; }
         public string Name { get; set; }
@@ -10,6 +10,6 @@ namespace Api.Domain.Entities
         public Guid? UserId { get; set; }  // se houver usuários
         public UserEntity? User { get; set; }
 
-        public ICollection<Message> Messages { get; set; }
+        public ICollection<MessageEntity> Messages { get; set; }
     }
 }
