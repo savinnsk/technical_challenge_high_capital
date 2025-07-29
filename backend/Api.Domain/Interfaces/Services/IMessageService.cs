@@ -7,7 +7,7 @@ namespace Api.Domain.Interfaces.Services
         //Task<MessageDto> GetOneById(Guid messageId);
         Task<IEnumerable<MessageDto>> GetAll(Guid chatbotId);
         //Task<UserDto> Update(MessageDto message);
-        Task<UserDto> Create(MessageDto message);
+        Task<MessageDto> Create(MessageDto message);
        //Task<bool> Delete(Guid id);
     }
 }
