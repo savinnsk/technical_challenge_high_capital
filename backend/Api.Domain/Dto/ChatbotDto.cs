@@ -5,7 +5,6 @@ namespace Api.Domain.Dto
 {
     public class ChatbotDto
     {
-        public Guid Id { get; set; }
 
         [Required]
         [DefaultValue("Bender")]
@@ -15,11 +14,13 @@ namespace Api.Domain.Dto
         [DefaultValue("um assistente")]
         public string Context { get; set; }
 
+        [Required]
+        public Guid UserId;
+
     }
 
-    public class ChatbotDtoList
+    public class ChatbotUpdateDto
     {
-
 
         public Guid Id { get; set; }
 

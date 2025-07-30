@@ -1,7 +1,5 @@
 
-using System.IdentityModel.Tokens.Jwt;
 using System.Net;
-using System.Security.Claims;
 using Api.Domain.Dto;
 using Api.Domain.Interfaces.Services;
 using Microsoft.AspNetCore.Authorization;
@@ -30,14 +28,19 @@ namespace Api.Aplication.Controllers
                 return BadRequest(ModelState);
             }
             
-            try {
+            var userEmail = HttpContext.User.Identity?.Name;
+            
+            try
+            {
 
-                var result = await this._chatbotService.GetAll();
+                var result = await this._chatbotService.GetAll(userEmail);
 
                 return Ok(result);
 
-            }catch(ArgumentException ex){
-                return StatusCode((int) HttpStatusCode.InternalServerError, ex.Message);
+            }
+            catch (ArgumentException ex)
+            {
+                return StatusCode((int)HttpStatusCode.InternalServerError, ex.Message);
             }
 
        }
@@ -50,14 +53,19 @@ namespace Api.Aplication.Controllers
                 return BadRequest(ModelState); 
             }
             
-            try {
+            var userEmail = HttpContext.User.Identity?.Name;
+            
+            try
+            {
 
-                var result = await this._chatbotService.GetOneById(id);
+                var result = await this._chatbotService.GetOneById(id,userEmail);
 
                 return Ok(result);
 
-            }catch(ArgumentException ex){
-                return StatusCode((int) HttpStatusCode.InternalServerError, ex.Message);
+            }
+            catch (ArgumentException ex)
+            {
+                return StatusCode((int)HttpStatusCode.InternalServerError, ex.Message);
             }
 
        }
@@ -66,18 +74,7 @@ namespace Api.Aplication.Controllers
            [Authorize("Bearer")]
            public async Task<IActionResult> Create([FromBody]ChatbotDto chatbot){
 
-             var user = HttpContext.User;
-             var claims = HttpContext.User.Claims.Select(c => new { c.Type, c.Value }).ToList();
-
-             Console.Write(claims);
-             if (user?.Identity?.IsAuthenticated != true)
-                return Unauthorized();
-
-    
-
-            
-            var token = Request.Headers["Authorization"].ToString().Replace("Bearer ", "");
-
+            var userEmail = HttpContext.User.Identity?.Name;
 
             if (!ModelState.IsValid)
             {
@@ -86,7 +83,7 @@ namespace Api.Aplication.Controllers
             
             try {
 
-                var result = await this._chatbotService.Create(chatbot);
+                var result = await this._chatbotService.Create(chatbot, userEmail);
                 
                 
                 return Ok(result);
@@ -102,26 +99,38 @@ namespace Api.Aplication.Controllers
 
            [HttpPut]
            [Authorize("Bearer")]
-           public async Task<IActionResult> Update([FromBody]ChatbotDto chatbot){
+           public async Task<IActionResult> Update([FromBody]ChatbotUpdateDto chatbot){
 
-            if (!ModelState.IsValid){ 
-                return BadRequest(ModelState); 
+            
+   
+             
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
             }
             
-            try {
+            var userEmail = HttpContext.User.Identity?.Name;
+            
+            try
+            {
 
-                var result = await this._chatbotService.Update(chatbot);
+                var result = await this._chatbotService.Update(chatbot,userEmail);
 
-                if (result != null){
+                if (result != null)
+                {
                     return Ok(result);
-                }else{
+                }
+                else
+                {
                     return BadRequest();
                 }
 
-             
 
-            }catch(ArgumentException ex){
-                return StatusCode((int) HttpStatusCode.InternalServerError, ex.Message);
+
+            }
+            catch (ArgumentException ex)
+            {
+                return StatusCode((int)HttpStatusCode.InternalServerError, ex.Message);
             }
 
        }
@@ -133,20 +142,28 @@ namespace Api.Aplication.Controllers
                 return BadRequest(ModelState); 
             }
             
-            try {
+            var userEmail = HttpContext.User.Identity?.Name;
 
-                var result = await this._chatbotService.Delete(id);
+            try
+            {
 
-                if (result != null){
+                var result = await this._chatbotService.Delete(id,userEmail);
+
+                if (result != null)
+                {
                     return Ok(result);
-                }else{
+                }
+                else
+                {
                     return BadRequest();
                 }
 
-             
 
-            }catch(ArgumentException ex){
-                return StatusCode((int) HttpStatusCode.InternalServerError, ex.Message);
+
+            }
+            catch (ArgumentException ex)
+            {
+                return StatusCode((int)HttpStatusCode.InternalServerError, ex.Message);
             }
 
     }

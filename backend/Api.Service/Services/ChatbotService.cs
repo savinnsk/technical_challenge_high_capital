@@ -1,6 +1,7 @@
 using Api.Domain.Dto;
 using Api.Domain.Entities;
 using Api.Domain.Interfaces;
+using Api.Domain.Interfaces.Repositories;
 using Api.Domain.Interfaces.Services;
 using Api.Domain.Models;
 using AutoMapper;
@@ -9,45 +10,84 @@ namespace Api.Service.Services
 {
     public class ChatbotService : IChatbotService
     {
-        private IRepository<ChatbotEntity> _ChatbotRepository;
+        private IChatbotRepository _ChatbotRepository;
+        private IUserRepository _userRepository;
         private readonly IMapper _mapper;
 
-        public ChatbotService(IRepository<ChatbotEntity> ChatbotRepository, IMapper mapper)
+        public ChatbotService(
+        IChatbotRepository ChatbotRepository,
+        IUserRepository userRepository,
+        IMapper mapper)
         {
             _ChatbotRepository = ChatbotRepository;
+            _userRepository = userRepository;
             _mapper = mapper;
         }
 
-        public async Task<ChatbotDto> Create(ChatbotDto Chatbot)
+        public async Task<ChatbotDto> Create(ChatbotDto chatbot, string userEmail)
         {
-            var ChatbotModel = _mapper.Map<ChatbotModel>(Chatbot);
+
+            var user = await _userRepository.GetByEmail(userEmail);
+            if (user == null) throw new UnauthorizedAccessException("Usuário inválido.");
+
+            chatbot.UserId = user.Id;
+
+            var ChatbotModel = _mapper.Map<ChatbotModel>(chatbot);
             var result = await _ChatbotRepository.InsertAsync(_mapper.Map<ChatbotEntity>(ChatbotModel));
 
             return _mapper.Map<ChatbotDto>(result);
         }
 
-        public async Task<bool> Delete(Guid id)
+        public async Task<bool> Delete(Guid id, string userEmail)
         {
-            var result = await _ChatbotRepository.DeleteAsync(id);
-            return result;
+            var user = await _userRepository.GetByEmail(userEmail);
+            if (user == null) throw new UnauthorizedAccessException("Usuário inválido.");
+
+            var chatbot = await _ChatbotRepository.SelectAsync(id);
+            if (chatbot == null) throw new KeyNotFoundException("Chatbot não encontrado.");
+
+            if (chatbot.UserId != user.Id)
+                throw new UnauthorizedAccessException("Você não tem permissão para deletar esse chatbot.");
+
+            return await _ChatbotRepository.DeleteAsync(id);
         }
 
-        public async Task<IEnumerable<ChatbotDto>> GetAll()
-        {
-            var result = await _ChatbotRepository.SelectAsync();
-            List<ChatbotEntity> resultsArray = new List<ChatbotEntity>();
+        public async Task<IEnumerable<ChatbotDto>> GetAll(string userEmail){
 
-            return _mapper.Map<IEnumerable<ChatbotDto>>(resultsArray);
+            var user = await _userRepository.GetByEmail(userEmail);
+            if (user == null) throw new UnauthorizedAccessException("Usuário inválido.");
+
+            var result = await _ChatbotRepository.GetChatbotsByUserIdAsync(user.Id);
+
+            return _mapper.Map<IEnumerable<ChatbotDto>>(result);
         }
 
-        public async Task<ChatbotDto> GetOneById(Guid id)
+        public async Task<ChatbotDto> GetOneById(Guid id, string userEmail)
         {
-            var result = await _ChatbotRepository.SelectAsync(id);
-            return _mapper.Map<ChatbotDto>(result);
+            var user = await _userRepository.GetByEmail(userEmail);
+            if (user == null) throw new UnauthorizedAccessException("Usuário inválido.");
+
+            var chatbot = await _ChatbotRepository.SelectAsync(id);
+            if (chatbot == null) throw new KeyNotFoundException("Chatbot não encontrado.");
+
+            if (chatbot.UserId != user.Id)
+            throw new UnauthorizedAccessException("Você não tem permissão para deletar esse chatbot.");
+
+
+            return _mapper.Map<ChatbotDto>(chatbot);
         }
 
-        public async Task<ChatbotDto> Update(ChatbotDto Chatbot)
+        public async Task<ChatbotDto> Update(ChatbotUpdateDto Chatbot, string userEmail)
         {
+            var user = await _userRepository.GetByEmail(userEmail);
+            if (user == null) throw new UnauthorizedAccessException("Usuário inválido.");
+
+            var chatbot = await _ChatbotRepository.SelectAsync(Chatbot.Id);
+            if (chatbot == null) throw new KeyNotFoundException("Chatbot não encontrado.");
+
+            if (chatbot.UserId != user.Id)
+            throw new UnauthorizedAccessException("Você não tem permissão para deletar esse chatbot.");
+
             var ChatbotModel = _mapper.Map<ChatbotModel>(Chatbot);
             var result = await _ChatbotRepository.UpdateAsync(_mapper.Map<ChatbotEntity>(ChatbotModel));
             return _mapper.Map<ChatbotDto>(result);

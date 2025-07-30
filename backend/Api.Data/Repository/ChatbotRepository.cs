@@ -20,7 +20,9 @@ namespace Api.Data.Repository
         {
             try
             {
-                var result = await _dataset.ToListAsync();
+            var result = await _dataset
+            .Where(chatbot => chatbot.UserId == userId)
+            .ToListAsync();
 
                 return result;
             }
