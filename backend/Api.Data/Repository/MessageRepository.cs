@@ -16,10 +16,12 @@ namespace Api.Data.Repository
         }
 
         public async Task<IEnumerable<MessageEntity>> GetMessagesByChatbotIdAsync(Guid chatbotId)
-        {
+           {
             try
             {
-                var result = await _dataset.ToListAsync();
+            var result = await _dataset
+            .Where(message => message.ChatbotId == chatbotId)
+            .ToListAsync();
 
                 return result;
             }

@@ -5,18 +5,16 @@ namespace Api.Domain.Dto
 {
     public class MessageDto
     {
-        public Guid Id { get; set; }
+        public string? Role { get; set; }
 
         [Required]
         public string ChatBotId{ get; set; }
 
         [Required]
         [DefaultValue("Olá")]
-        public string Context { get; set; }
+        public string Content { get; set; }
 
-        [Required]
-        [DefaultValue("user")]
-        public string Role { get; set; }
+   
 
     }
 }

@@ -23,7 +23,9 @@ namespace Api.Domain.Models
             get { return _role; }
             set { _role = value; }
         }
-        private string _content
+
+        private string _content;
+        public string Content
         {
             get { return _content; }
             set { _content = value; }

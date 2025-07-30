@@ -19,26 +19,33 @@ namespace Api.Aplication.Controllers
                 _messageService = messageService;
             }
 
-         
+
            [HttpGet]
            [Authorize("Bearer")]
-           public async Task<IActionResult> GetAll(Guid id){
+           [Route("{chatbotId}")]
+           public async Task<IActionResult> GetAll(Guid chatbotId)
+        {
 
-            if (!ModelState.IsValid){
+            if (!ModelState.IsValid)
+            {
                 return BadRequest(ModelState);
             }
-            
-            try {
+            var userEmail = HttpContext.User.Identity?.Name;
 
-                var result = await this._messageService.GetAll(new Guid());
+            try
+            {
+
+                var result = await this._messageService.GetAll(chatbotId, userEmail);
 
                 return Ok(result);
 
-            }catch(ArgumentException ex){
-                return StatusCode((int) HttpStatusCode.InternalServerError, ex.Message);
+            }
+            catch (ArgumentException ex)
+            {
+                return StatusCode((int)HttpStatusCode.InternalServerError, ex.Message);
             }
 
-       }
+        }
            
            [HttpPost]
            [Authorize("Bearer")]
@@ -47,18 +54,22 @@ namespace Api.Aplication.Controllers
             if (!ModelState.IsValid){ 
                 return BadRequest(ModelState); 
             }
+            var userEmail = HttpContext.User.Identity?.Name;
             
-            try {
+            try
+            {
 
-                var result = await this._messageService.Create(message);
-                
-                
+                var result = await this._messageService.Create(message,userEmail);
+
+
                 return Ok(result);
 
-             
 
-            }catch(ArgumentException ex){
-                return StatusCode((int) HttpStatusCode.InternalServerError, ex.Message);
+
+            }
+            catch (ArgumentException ex)
+            {
+                return StatusCode((int)HttpStatusCode.InternalServerError, ex.Message);
             }
 
        }

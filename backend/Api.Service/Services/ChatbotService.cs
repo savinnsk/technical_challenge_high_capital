@@ -1,6 +1,5 @@
 using Api.Domain.Dto;
 using Api.Domain.Entities;
-using Api.Domain.Interfaces;
 using Api.Domain.Interfaces.Repositories;
 using Api.Domain.Interfaces.Services;
 using Api.Domain.Models;
@@ -52,14 +51,14 @@ namespace Api.Service.Services
             return await _ChatbotRepository.DeleteAsync(id);
         }
 
-        public async Task<IEnumerable<ChatbotDto>> GetAll(string userEmail){
+        public async Task<IEnumerable<ChatbotUpdateDto>> GetAll(string userEmail){
 
             var user = await _userRepository.GetByEmail(userEmail);
             if (user == null) throw new UnauthorizedAccessException("Usuário inválido.");
 
             var result = await _ChatbotRepository.GetChatbotsByUserIdAsync(user.Id);
 
-            return _mapper.Map<IEnumerable<ChatbotDto>>(result);
+            return _mapper.Map<IEnumerable<ChatbotUpdateDto>>(result);
         }
 
         public async Task<ChatbotDto> GetOneById(Guid id, string userEmail)
