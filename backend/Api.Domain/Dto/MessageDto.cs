@@ -1,14 +1,16 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel;
+using System.Text.Json.Serialization;
 
 namespace Api.Domain.Dto
 {
     public class MessageDto
     {
+        [JsonIgnore]
         public string? Role { get; set; }
 
         [Required]
-        public string ChatBotId{ get; set; }
+        public Guid ChatBotId{ get; set; }
 
         [Required]
         [DefaultValue("Olá")]

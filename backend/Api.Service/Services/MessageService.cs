@@ -11,16 +11,21 @@ namespace Api.Service.Services
     public class MessageService : IMessageService
     {
         private IMessageRepository _MessageRepository;
+        private IChatbotService _chatbotRepository;
         private readonly IMapper _mapper;
 
-        public MessageService(IMessageRepository MessageRepository, IMapper mapper)
+        public MessageService(IMessageRepository MessageRepository,IChatbotService chatbotRepository, IMapper mapper)
         {
+            _chatbotRepository = chatbotRepository;
             _MessageRepository = MessageRepository;
             _mapper = mapper;
         }
 
         public async Task<object> Create(MessageDto message, string userEmail)
         {
+
+            var chatbot = await _chatbotRepository.GetOneById(message.ChatBotId, userEmail);
+
             message.Role = "user";
             var MessageModel = _mapper.Map<MessageModel>(message);
             await _MessageRepository.InsertAsync(_mapper.Map<MessageEntity>(MessageModel));
@@ -30,7 +35,7 @@ namespace Api.Service.Services
             throw new Exception("OPENAI_API_KEY não configurada.");
 
             var openIaService = new OpenAIService(apiKey);
-            var resOpenIa = await openIaService.GetResponseAsync(message.Content);
+            var resOpenIa = await openIaService.GetResponseAsync(chatbot.Context + "=" + message.Content);
             
             message.Role = "assistant";
             message.Content = resOpenIa;

@@ -22,7 +22,7 @@ namespace Api.Aplication.Controllers
          
            [HttpGet]
            [Authorize("Bearer")]
-           public async Task<IActionResult> GetAll(Guid id){
+           public async Task<IActionResult> GetAll(){
 
             if (!ModelState.IsValid){
                 return BadRequest(ModelState);
