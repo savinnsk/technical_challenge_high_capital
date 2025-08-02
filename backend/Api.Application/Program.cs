@@ -9,6 +9,7 @@ new Swagger(builder.Services, builder.Configuration).Configure();
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
+DotNetEnv.Env.Load();
 
 InjectAllDependencies.Configure(builder.Services, config.AuthToken());
 

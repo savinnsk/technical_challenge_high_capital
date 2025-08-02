@@ -6,11 +6,12 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
   
-    <ItemGroup>
-    <ProjectReference Include="..\Api.Domain\Domain.csproj" />
+  <ItemGroup>
+    <ProjectReference Include="..\Api.Domain\Api.Domain.csproj" />
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="DotNetEnv" Version="3.1.1" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="7.0.19" />
     <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="7.5.2" />
   </ItemGroup>
