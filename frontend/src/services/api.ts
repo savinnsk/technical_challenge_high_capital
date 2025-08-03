@@ -48,16 +48,14 @@ export const getChatboots = async (token: string) => {
         const response = await axios.get(`http://localhost:5201/api/v1/Chatbots`, {
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization': `${token}`
+                'Authorization': `Bearer ${token}`
             }
         })
 
-
-
-        return response
+        return response.data
 
     } catch (error: any) {
-
+         console.log(error)
         return error
     }
 }
