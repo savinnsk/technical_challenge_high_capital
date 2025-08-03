@@ -2,4 +2,6 @@
 **/obj
 .config
 **/**.db
-**/**.env 
+**/**.env
+**/node_modules
+**/dist
