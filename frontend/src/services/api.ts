@@ -6,13 +6,17 @@ export const authorization = async (formData: {
 }) => {
     try {
         const response = await axios.post('http://localhost:5201/api/v1/Authorization', formData, {
-            headers: {
-                'Content-Type': 'multipart/form-data'
-            }
+               headers: {
+                'Content-Type': 'application/json'
+                }
         })
 
+        console.log(response)
+        if(response.data.acessToken){
+            return response.data.acessToken
+        }
 
-        return response
+        return new Error("erro na autorização")
 
     } catch (error: any) {
         return error

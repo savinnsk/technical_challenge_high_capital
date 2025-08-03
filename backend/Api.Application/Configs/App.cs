@@ -20,7 +20,7 @@
             }
 
             app.UseAuthorization();
-
+            app.UseCors("AllowFrontend");
             app.MapControllers();
 
             return app;
