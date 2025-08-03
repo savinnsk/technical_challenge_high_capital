@@ -1,0 +1,30 @@
+.sendButton {
+    background: #9dc86e;
+    color: #fff;
+    padding: 5px;
+    border-radius: 5px;
+    font-weight: bold;
+}
+
+button:hover {
+   background-color: #888;
+}
+
+@media screen and (max-width: 600px) {
+    .header p {
+        display: none;
+    }
+
+    .header img {
+        width: 25;
+        height: 25;
+    }
+
+    input {
+        width: 35%;
+    }
+
+    .upload {
+        width: 30%;
+    }
+}
