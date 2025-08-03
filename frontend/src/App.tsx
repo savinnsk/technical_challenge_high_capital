@@ -1,13 +1,15 @@
 import './App.css'
-
-
+import { Header } from './components/header/header'
+import { StoreProvider } from './providers/store-provider'
 
 
 function App() {
 
 
   return (
- <h1>hey</h1>
+  <StoreProvider>
+    <Header/>
+    </StoreProvider>
   )
 }
 
