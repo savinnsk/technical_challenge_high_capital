@@ -89,10 +89,10 @@ button:disabled {
 
 /* Submit */
 .modal button[type="submit"] {
-  background: #4caf50;
+  background: #174170;
   color: white;
 }
 
 .modal button[type="submit"]:hover {
-  background: #43a047;
+  background: #112d4d;
 }

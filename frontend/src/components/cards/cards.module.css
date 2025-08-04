@@ -32,7 +32,7 @@
 
 /* Card para criar novo bot */
 .createCard {
-  background-color: #43a047;
+  background-color: #174170;
   color: white;
   display: flex;
   justify-content: center;
@@ -41,10 +41,14 @@
   font-size: 16px;
   cursor: pointer;
   transition: background 0.2s ease;
+
+  p{
+    color: white;
+  }
 }
 
 .createCard:hover {
-  background-color: #217225;
+  background-color: #123052;
 }
 
 
