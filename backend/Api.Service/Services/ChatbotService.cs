@@ -29,7 +29,7 @@ namespace Api.Service.Services
             if (user == null) throw new UnauthorizedAccessException("Usuário inválido.");
 
             var chatbotContext = chatbot.Context;
-            chatbot.Context = "Responda como um" + chatbotContext;
+            chatbot.Context = "Responda como um " + chatbotContext + ", você deve interpretar isso ao responder:";
             chatbot.UserId = user.Id;
 
             var ChatbotModel = _mapper.Map<ChatbotModel>(chatbot);
