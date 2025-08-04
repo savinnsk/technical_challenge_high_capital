@@ -58,7 +58,7 @@ export function Chat({ bot, onClose }: { bot: any; onClose: () => void }) {
       </div>
 
       <div className={s.chatBody}>
-        {messages.map((message : any, index : number) => (
+        {messages?.map((message : any, index : number) => (
           <div
             key={index}
             className={

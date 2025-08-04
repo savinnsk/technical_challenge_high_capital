@@ -105,7 +105,7 @@ export const deleteOneChatboots = async (data : {id : string , token: string}) =
         const response = await axios.delete(`http://localhost:5201/api/v1/Chatbots/${data.id}`, {
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization': `${data.token}`
+                 'Authorization': `Bearer ${data.token}`
             }
         })
 
