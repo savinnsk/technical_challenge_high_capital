@@ -1,15 +1,27 @@
-## Configurações Banco de dados
+## Configurações inicial do projeto
+
+**renomei o arquivo .env-exemple para .env e coloque a chave para usar o openIA :**
+
+OPENAI_API_KEY=
 
 ````sh
 # rodar migrations e criar banco
 dotnet ef database update --project Api.Data
 
-# rodar projeto
+# rodar projeto backend / entra na pasta backend
 dotnet run --project .\Api.Application\Api.Aplication.csproj
+
+# rodar projeto frontend / entra na pasta frotend
+npm run dev
 
 ````
 
+## Ferramentas usadas
 
+- SQLite
+- Vite
+- .NET
+- EntityFramework
 
 ## ✅ Requisitos Funcionais (RF)
 
