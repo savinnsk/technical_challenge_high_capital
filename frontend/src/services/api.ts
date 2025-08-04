@@ -47,7 +47,7 @@ export const validadeToken = async (token: string) => {
 export const createUser = async (formData: {
     password: string,
     email: string,
-    neme : string
+    name : string
 }) => {
     try {
         const response = await axios.post('http://localhost:5201/api/v1/Users', formData, {

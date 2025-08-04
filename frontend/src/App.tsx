@@ -1,47 +1,61 @@
-import './App.css'
-import { useEffect, useState } from 'react'
+import { useState, useEffect } from 'react'
 import { Cards } from './components/cards/cards'
 import { Header } from './components/header/header'
-import { StoreProvider } from './providers/store-provider'
 import { LoginForm } from './components/login-form/login-form'
-import useStore from './hooks/store'
-import { validadeToken } from './services/api'
 
+import { validadeToken } from './services/api'
+import useStore from './hooks/store'
+import { RegisterModal } from './components/register-modal/register-modal'
+import "./App.css"
 function App() {
   const [token, setToken] = useState<string | null>(null)
+  const [showRegister, setShowRegister] = useState(false)
   const store = useStore()
 
-  const verifyToken = async (token : string) =>{
-    const tokenValidated = await validadeToken(token)
-    if(tokenValidated){
+  const verifyToken = async (token: string) => {
+    const isValid = await validadeToken(token)
+    if (isValid) {
       store?.setToken(token)
-      setToken(token);
-      return tokenValidated
+      setToken(token)
+    } else {
+      localStorage.setItem('token', '')
     }
-     localStorage.setItem('token',"");
   }
 
   useEffect(() => {
     store?.clearLocalStorage()
-    const storedToken = localStorage.getItem('token');
-    verifyToken(storedToken as string)
+    const storedToken = localStorage.getItem('token')
+    if (storedToken) verifyToken(storedToken)
   }, [])
 
+  if (!token) {
+    return showRegister ? (
+      <RegisterModal
+        onRegisterSuccess={(newToken: any) => {
+          localStorage.setItem('token', newToken)
+          setToken(newToken)
+          store?.setToken(newToken)
+        }}
+        onCancel={() => setShowRegister(false)}
+          onClose={() => setShowRegister(false)}
+      />
+    ) : (
+      <LoginForm
+        onLoginSuccess={(newToken) => {
+          localStorage.setItem('token', newToken)
+          setToken(newToken)
+          store?.setToken(newToken)
+        }}
+        onRegisterClick={() => setShowRegister(true)}
+      />
+    )
+  }
+
   return (
-    <StoreProvider>
-      {token ? (
-        <>
-          <Header />
-          <Cards />
-        </>
-      ) : (
-        <LoginForm onLoginSuccess={(newToken : any) => {
-          localStorage.setItem('token', newToken);
-          setToken(newToken);
-          store?.setToken(newToken);
-        }} />
-      )}
-    </StoreProvider>
+    <>
+      <Header />
+      <Cards />
+    </>
   )
 }
 
