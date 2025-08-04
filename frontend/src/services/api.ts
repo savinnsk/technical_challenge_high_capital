@@ -126,13 +126,13 @@ export const createChatboots = async (token: string, formData : {name: string,
         const response = await axios.post(`http://localhost:5201/api/v1/Chatbots`,formData, {
             headers: {
                 'Content-Type': 'application/json',
-                  'Authorization': `Bearer ${token}`
+                'Authorization': `Bearer ${token}`
             }
         })
 
+console.log(response)
 
-
-        return response
+        return response.data
 
     } catch (error: any) {
 

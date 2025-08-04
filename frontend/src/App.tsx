@@ -7,6 +7,7 @@ import { validadeToken } from './services/api'
 import useStore from './hooks/store'
 import { RegisterModal } from './components/register-modal/register-modal'
 import "./App.css"
+import { StoreContext, StoreProvider } from './providers/store-provider'
 function App() {
   const [token, setToken] = useState<string | null>(null)
   const [showRegister, setShowRegister] = useState(false)
@@ -29,7 +30,7 @@ function App() {
   }, [])
 
   if (!token) {
-    return showRegister ? (
+    return  showRegister ? ( <StoreProvider >
       <RegisterModal
         onRegisterSuccess={(newToken: any) => {
           localStorage.setItem('token', newToken)
@@ -38,8 +39,8 @@ function App() {
         }}
         onCancel={() => setShowRegister(false)}
           onClose={() => setShowRegister(false)}
-      />
-    ) : (
+      /></StoreProvider> ) : (
+        <StoreProvider>
       <LoginForm
         onLoginSuccess={(newToken) => {
           localStorage.setItem('token', newToken)
@@ -48,14 +49,15 @@ function App() {
         }}
         onRegisterClick={() => setShowRegister(true)}
       />
+      </StoreProvider>
     )
   }
 
   return (
-    <>
+    <StoreProvider>
       <Header />
       <Cards />
-    </>
+    </StoreProvider>
   )
 }
 

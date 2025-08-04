@@ -12,7 +12,7 @@ export function Cards() {
  
   const getChatBots = async () => {
     if (store?.token) {
-      const chatBots = await getChatboots(store.token);
+      const chatBots = await getChatboots(store?.token || localStorage.getItem('token') as string);
       store.setChatBots(chatBots);
     }
   };
