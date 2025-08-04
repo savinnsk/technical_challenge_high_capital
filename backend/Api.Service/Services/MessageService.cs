@@ -46,10 +46,10 @@ namespace Api.Service.Services
              return new { text = resOpenIa };
         }
 
-        public async Task<IEnumerable<MessageDto>> GetAll(Guid chatbotId, string userEmail)
+        public async Task<IEnumerable<MessageDtoList>> GetAll(Guid chatbotId, string userEmail)
         {
             var result = await _MessageRepository.GetMessagesByChatbotIdAsync(chatbotId);
-            return _mapper.Map<IEnumerable<MessageDto>>(result);
+            return _mapper.Map<IEnumerable<MessageDtoList>>(result);
         }
     }
 }

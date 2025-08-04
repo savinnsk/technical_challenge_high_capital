@@ -10,6 +10,7 @@ namespace Api.CrossCutting.Mappings
         {
             CreateMap<UserDto, UserEntity>().ReverseMap();
             CreateMap<MessageDto, MessageEntity>().ReverseMap();
+            CreateMap<MessageDtoList, MessageEntity>().ReverseMap();
             CreateMap<ChatbotDto, ChatbotEntity>().ReverseMap();
             CreateMap<ChatbotUpdateDto, ChatbotEntity>().ReverseMap();
         }

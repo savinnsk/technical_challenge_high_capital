@@ -10,6 +10,23 @@ namespace Api.Domain.Dto
         public string? Role { get; set; }
 
         [Required]
+        public Guid ChatBotId { get; set; }
+
+        [Required]
+        [DefaultValue("Olá")]
+        public string Content { get; set; }
+
+
+
+    }
+    
+
+        public class MessageDtoList
+    {
+        [Required]
+        public string Role { get; set; }
+
+        [Required]
         public Guid ChatBotId{ get; set; }
 
         [Required]
