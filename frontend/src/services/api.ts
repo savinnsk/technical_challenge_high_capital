@@ -31,7 +31,7 @@ export const createUser = async (formData: {
     try {
         const response = await axios.post('http://localhost:5201/api/v1/Users', formData, {
             headers: {
-                'Content-Type': 'multipart/form-data'
+              'Content-Type': 'application/json'
             }
         })
 
@@ -65,7 +65,7 @@ export const getOneChatboots = async (data : {id : string , token: string}) => {
         const response = await axios.get(`http://localhost:5201/api/v1/Chatbots/${data.id}`, {
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization': `${data.token}`
+                'Authorization': `Bearer ${data.token}`
             }
         })
 
@@ -105,7 +105,7 @@ export const createChatboots = async (token: string, formData : {name: string,
         const response = await axios.post(`http://localhost:5201/api/v1/Chatbots`,formData, {
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization': `${token}`
+                  'Authorization': `Bearer ${token}`
             }
         })
 
@@ -126,7 +126,7 @@ export const createMessage = async (token: string, formData : {chatBotId: string
         const response = await axios.post(`http://localhost:5201/api/v1/Messages`,formData, {
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization': `${token}`
+                  'Authorization': `Bearer ${token}`
             }
         })
 
@@ -145,16 +145,16 @@ export const getAllMessagesFromBot = async (token: string, chatBotId: string) =>
         const response = await axios.get(`http://localhost:5201/api/v1/Messages/${chatBotId}`, {
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization': `${token}`
+                'Authorization': `Bearer ${token}`
             }
         })
 
 
-
-        return response
+console.log("due",response.data)
+        return response.data
 
     } catch (error: any) {
-
+        console.log(error)
         return error
     }
 }
