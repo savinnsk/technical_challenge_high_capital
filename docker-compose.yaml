@@ -1,6 +1,7 @@
 services:
   backend:
-    image: mcr.microsoft.com/dotnet/sdk:8.0
+    build:
+      context: ./backend
     container_name: backend
     ports:
       - "5201:5201"
@@ -8,11 +9,11 @@ services:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_HTTP_PORTS=5212
       - ASPNETCORE_HTTPS_PORTS=5212
-      - ASPNETCORE_URLS=http://+:80;https://+:443
+      - ASPNETCORE_URLS=http://0.0.0.0:5201
     volumes:
       - ./backend:/app
     working_dir: /app
-    command: bash -c "export PATH=\"$PATH:/root/.dotnet/tools\" && dotnet tool install --global dotnet-ef && dotnet restore  && dotnet ef database update --project Api.Data && dotnet run --project ./Api.Aplication/Api.application.csproj"
+    command: bash -c "dotnet restore && dotnet ef database update --project ./Api.Data/Api.Data.csproj && dotnet run --project ./Api.Application/Api.Aplication.csproj"
     networks:
       - app-network
 

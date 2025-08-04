@@ -1,8 +1,20 @@
 ## Configurações inicial do projeto
 
-**renomei o arquivo .env-exemple para .env e coloque a chave para usar o openIA :**
-
+**renomei o arquivo .env-exemple no backend para .env e coloque a chave para usar o openIA :**
 OPENAI_API_KEY=
+
+**renomei o arquivo .env-exemple no frontend para .env a url padrão de teste já está definida**
+VITE_API_URL=http://127.0.0.1:5201
+
+### Para rodar o projeto basta ter o docker e entra na pasta aonde estar o docker compose file
+````sh
+# com esse commando as migrations, e todas as configurações vão funcionar
+docker compose up
+
+````
+
+
+### Para rodar sem o docker
 
 ````sh
 # rodar migrations e criar banco
@@ -22,6 +34,7 @@ npm run dev
 - Vite
 - .NET
 - EntityFramework
+- Doker
 
 ## ✅ Requisitos Funcionais (RF)
 

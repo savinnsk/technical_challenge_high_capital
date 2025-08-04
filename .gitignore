@@ -6,3 +6,5 @@
 **/node_modules
 **/dist
 **/build
+**/**db-wal
+**/**db-shm
