@@ -1,9 +1,9 @@
 ## Configurações inicial do projeto
 
-**renomei o arquivo .env-exemple no backend para .env e coloque a chave para usar o openIA :**
+**renomei o arquivo .env-exemple no backend para .env e coloque a chave para usar o openIA :**<br>
 OPENAI_API_KEY=
 
-**renomei o arquivo .env-exemple no frontend para .env a url padrão de teste já está definida**
+**renomei o arquivo .env-exemple no frontend para .env a url padrão de teste já está definida**<br>
 VITE_API_URL=http://127.0.0.1:5201
 
 ### Para rodar o projeto basta ter o docker e entra na pasta aonde estar o docker compose file
@@ -12,6 +12,13 @@ VITE_API_URL=http://127.0.0.1:5201
 docker compose up
 
 ````
+
+**Endereço da documentação da API com swagger**<br>
+http://localhost:5201/swagger/index.html
+
+
+**Endereço da aplicação(frontend)**<br>
+ http://localhost:5173
 
 
 ### Para rodar sem o docker
@@ -34,7 +41,8 @@ npm run dev
 - Vite
 - .NET
 - EntityFramework
-- Doker
+- Docker
+- Swagger
 
 ## ✅ Requisitos Funcionais (RF)
 
