@@ -25,10 +25,11 @@ namespace Api.Service.Services
 
         public async Task<ChatbotDto> Create(ChatbotDto chatbot, string userEmail)
         {
-
             var user = await _userRepository.GetByEmail(userEmail);
             if (user == null) throw new UnauthorizedAccessException("Usuário inválido.");
 
+            var chatbotContext = chatbot.Context;
+            chatbot.Context = "Responda como um" + chatbotContext;
             chatbot.UserId = user.Id;
 
             var ChatbotModel = _mapper.Map<ChatbotModel>(chatbot);
