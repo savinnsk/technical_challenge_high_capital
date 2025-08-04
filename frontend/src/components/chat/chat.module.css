@@ -81,3 +81,8 @@
   font-size: 14px;
   word-break: break-word;
 }
+
+.loading {
+  font-style: italic;
+  color: #aaa;
+}

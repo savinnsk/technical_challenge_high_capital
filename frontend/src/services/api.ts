@@ -170,8 +170,6 @@ export const getAllMessagesFromBot = async (token: string, chatBotId: string) =>
             }
         })
 
-
-console.log("due",response.data)
         return response.data
 
     } catch (error: any) {
