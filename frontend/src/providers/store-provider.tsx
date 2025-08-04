@@ -11,6 +11,8 @@ interface StoreContextType {
 
   chatBots: any[] | null;
   setChatBots: (bots: any[]) => void;
+
+  clearLocalStorage :  () => void
 }
 
 export const StoreContext = createContext<StoreContextType | undefined>(undefined);
@@ -29,6 +31,13 @@ export const StoreProvider = ({ children }: { children: React.ReactNode }) => {
     if (savedToken) setToken(savedToken);
     if (savedChatBots) setChatBots(JSON.parse(savedChatBots));
   }, []);
+
+
+  const clearLocalStorage = () => {
+     localStorage.setItem('chatBots',"");
+  };
+
+
 
   const saveToken = (token: string) => {
     localStorage.setItem('token', token);
@@ -63,6 +72,7 @@ export const StoreProvider = ({ children }: { children: React.ReactNode }) => {
         setToken: saveToken,
         chatBots,
         setChatBots: saveChatBots,
+        clearLocalStorage
       }}
     >
       {children}
