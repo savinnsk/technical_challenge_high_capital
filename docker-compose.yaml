@@ -1,0 +1,33 @@
+services:
+  backend:
+    image: mcr.microsoft.com/dotnet/sdk:8.0
+    container_name: backend
+    ports:
+      - "5201:5201"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_HTTP_PORTS=5212
+      - ASPNETCORE_HTTPS_PORTS=5212
+      - ASPNETCORE_URLS=http://+:80;https://+:443
+    volumes:
+      - ./backend:/app
+    working_dir: /app
+    command: bash -c "export PATH=\"$PATH:/root/.dotnet/tools\" && dotnet tool install --global dotnet-ef && dotnet restore  && dotnet ef database update --project Api.Data && dotnet run --project ./Api.Aplication/Api.application.csproj"
+    networks:
+      - app-network
+
+  frontend:
+    image: node:23
+    container_name: frontend
+    working_dir: /app
+    volumes:
+      - ./frontend:/app
+    ports:
+      - "5173:5173"
+    command: sh -c "npm install && npm run dev -- --host"
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
