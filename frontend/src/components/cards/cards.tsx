@@ -3,17 +3,23 @@ import useStore from '../../hooks/store';
 import s from './cards.module.css';
 import { deleteOneChatboots, getChatboots } from '../../services/api';
 import { Chat } from '../chat/chat';
+import { CreateBotModal } from '../createBotModal/create-bot-modal';
 
 export function Cards() {
   const store = useStore();
   const [activeBot, setActiveBot] = useState<any | null>(null);
-
+ const [showModal, setShowModal] = useState(false);
+ 
   const getChatBots = async () => {
     if (store?.token) {
       const chatBots = await getChatboots(store.token);
       store.setChatBots(chatBots);
     }
   };
+
+   
+
+ 
 
   const handleDelete = async (e: React.MouseEvent, botId: string) => {
     e.stopPropagation(); 
@@ -32,7 +38,7 @@ export function Cards() {
   };
 
   const handleCreateNewBot = () => {
-    console.log("Criar novo bot");
+    setShowModal(true);
   };
 
   useEffect(() => {
@@ -63,9 +69,16 @@ export function Cards() {
           </div>
         ))}
 
-        <div className={`${s.card} ${s.createCard}`} onClick={handleCreateNewBot}>
-          <p style={{ fontSize: '18px', textAlign: 'center' }}>➕ Criar novo bot</p>
-        </div>
+         <div className={`${s.card} ${s.createCard}`} onClick={handleCreateNewBot}>
+        <p style={{ fontSize: '18px', textAlign: 'center' }}>➕ Criar novo bot</p>
+      </div>
+
+      {showModal && (
+        <CreateBotModal
+          onClose={() => setShowModal(false)}
+          onSuccess={getChatBots}
+        />
+      )}
       </div>
 
       {activeBot && <Chat bot={activeBot} onClose={handleCloseChat} />}
