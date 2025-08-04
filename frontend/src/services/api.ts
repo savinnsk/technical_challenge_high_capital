@@ -23,6 +23,27 @@ export const authorization = async (formData: {
     }
 }
 
+export const validadeToken = async (token: string) => {
+    try {
+        const response = await axios.get('http://localhost:5201/api/v1/Authorization/me', {
+               headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+                }
+        })
+
+        if(response.data.authenticated){
+            return response.data.authenticated
+        }
+
+        return new Error("erro na autorização")
+
+    } catch (error: any) {
+        return error
+    }
+}
+
+
 export const createUser = async (formData: {
     password: string,
     email: string,
