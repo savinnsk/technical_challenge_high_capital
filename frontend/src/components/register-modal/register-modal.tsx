@@ -23,15 +23,14 @@ export const RegisterModal = ({ onClose, onRegisterSuccess,onCancel }: RegisterF
     return;
   }
     const data = await createUser({name,email,password})
-    
-    if(data.data.name){
+    if(data.name){
           try {
               const token = await authorization({ email, password });
               localStorage.setItem('token', token);
               store?.setToken(token);
               onRegisterSuccess?.(token)
             } catch (err) {
-              store?.toSetError();
+              store?.toSetError()
               store?.toSetNotification('Erro no Login');
               console.error(err);
             }
