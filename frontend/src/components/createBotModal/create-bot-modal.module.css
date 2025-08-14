@@ -1,5 +1,5 @@
-/* Fundo escurecido */
-.overlay {
+/* Overlay no estilo WhatsApp */
+.whatsappOverlay {
   position: fixed;
   top: 0;
   left: 0;
@@ -10,89 +10,231 @@
   align-items: center;
   justify-content: center;
   z-index: 999;
+  padding: 20px;
+  backdrop-filter: blur(8px);
 }
 
 /* Modal principal */
-.modal {
-  background: #ffffff;
+.whatsappModal {
+  background: white;
+  border-radius: 20px;
   padding: 32px;
-  border-radius: 12px;
   width: 100%;
-  max-width: 420px;
-  color: #1c1c1c;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+  max-width: 480px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+  animation: slideIn 0.3s ease-out;
 }
 
-/* Título */
-.modal h2 {
-  margin-bottom: 20px;
-  font-size: 20px;
-  font-weight: 600;
-  color: #1c1c1c;
+/* Header do modal */
+.modalHeader {
+  text-align: center;
+  margin-bottom: 32px;
 }
 
-/* Campos de entrada */
-.modal input,
-.modal textarea {
-  width: 100%;
-  padding: 12px 14px;
-  margin-bottom: 16px;
-  background: #f7f7f7;
-  color: #2c2c2c;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  font-size: 14px;
-  transition: border-color 0.2s ease;
-}
-
-.modal input:focus,
-.modal textarea:focus {
-  border-color: #4caf50;
-  outline: none;
-  background-color: #fff;
-}
-
-/* Área dos botões */
-.buttons {
+.modalIcon {
+  width: 64px;
+  height: 64px;
+  background: linear-gradient(135deg, #25D366 0%, #128C7E 100%);
+  border-radius: 50%;
   display: flex;
-  justify-content: flex-end;
-  gap: 10px;
-  margin-top: 10px;
+  align-items: center;
+  justify-content: center;
+  font-size: 32px;
+  margin: 0 auto 16px;
+  box-shadow: 0 8px 24px rgba(37, 211, 102, 0.3);
 }
 
-/* Botão base */
-button {
-  padding: 10px 16px;
-  border: none;
-  border-radius: 6px;
+.modalTitle {
+  font-size: 24px;
+  font-weight: 700;
+  color: #111b21;
+  margin-bottom: 8px;
+}
+
+.modalSubtitle {
+  color: #667781;
+  font-size: 14px;
+  margin: 0;
+}
+
+/* Formulário */
+.createForm {
+  text-align: left;
+}
+
+.inputGroup {
+  margin-bottom: 20px;
+}
+
+.inputLabel {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 600;
+  color: #111b21;
+  font-size: 14px;
+}
+
+.whatsappInput,
+.whatsappTextarea {
+  width: 100%;
+  padding: 16px;
+  border: 2px solid #e9edef;
+  border-radius: 12px;
+  font-size: 16px;
+  transition: all 0.3s ease;
+  background-color: #f8f9fa;
+  color: #111b21;
+  font-family: inherit;
+}
+
+.whatsappTextarea {
+  resize: vertical;
+  min-height: 100px;
+  line-height: 1.5;
+}
+
+.whatsappInput:focus,
+.whatsappTextarea:focus {
+  outline: none;
+  border-color: #25D366;
+  background-color: white;
+  box-shadow: 0 0 0 4px rgba(37, 211, 102, 0.1);
+}
+
+.whatsappInput::placeholder,
+.whatsappTextarea::placeholder {
+  color: #667781;
+}
+
+/* Mensagem de erro */
+.errorMessage {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background-color: #ffebee;
+  color: #c62828;
+  padding: 12px 16px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  border-left: 4px solid #f44336;
+}
+
+.errorMessage span {
+  font-size: 18px;
+}
+
+.errorMessage p {
+  margin: 0;
   font-size: 14px;
   font-weight: 500;
-  cursor: pointer;
-  transition: background 0.2s ease;
 }
 
-/* Desabilitado */
-button:disabled {
+/* Botões do modal */
+.modalButtons {
+  display: flex;
+  gap: 12px;
+  margin-top: 24px;
+}
+
+.cancelButton {
+  flex: 1;
+  padding: 14px 20px;
+  background: #f0f2f5;
+  color: #667781;
+  border: none;
+  border-radius: 12px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.cancelButton:hover:not(:disabled) {
+  background: #e4e6e9;
+  transform: translateY(-1px);
+}
+
+.cancelButton:disabled {
   opacity: 0.6;
   cursor: not-allowed;
 }
 
-/* Cancelar */
-.cancel {
-  background: #e0e0e0;
-  color: #333;
-}
-
-.cancel:hover {
-  background: #d5d5d5;
-}
-
-/* Submit */
-.modal button[type="submit"] {
-  background: #174170;
+.createButton {
+  flex: 2;
+  padding: 14px 20px;
+  background: linear-gradient(135deg, #25D366 0%, #128C7E 100%);
   color: white;
+  border: none;
+  border-radius: 12px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 4px 16px rgba(37, 211, 102, 0.3);
 }
 
-.modal button[type="submit"]:hover {
-  background: #112d4d;
+.createButton:hover:not(:disabled) {
+  transform: translateY(-1px);
+  box-shadow: 0 8px 24px rgba(37, 211, 102, 0.4);
+}
+
+.createButton:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* Animações */
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(30px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* Responsividade */
+@media (max-width: 480px) {
+  .whatsappOverlay {
+    padding: 16px;
+  }
+  
+  .whatsappModal {
+    padding: 24px;
+    border-radius: 16px;
+  }
+  
+  .modalIcon {
+    width: 56px;
+    height: 56px;
+    font-size: 28px;
+  }
+  
+  .modalTitle {
+    font-size: 20px;
+  }
+  
+  .modalSubtitle {
+    font-size: 13px;
+  }
+  
+  .whatsappInput,
+  .whatsappTextarea {
+    padding: 14px;
+    font-size: 15px;
+  }
+  
+  .modalButtons {
+    flex-direction: column;
+    gap: 8px;
+  }
+  
+  .cancelButton,
+  .createButton {
+    padding: 12px 16px;
+    font-size: 14px;
+  }
 }

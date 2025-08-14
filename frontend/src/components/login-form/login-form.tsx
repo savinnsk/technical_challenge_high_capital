@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 import { authorization } from '../../services/api';
-import './login-form.module.css';
+import s from './login-form.module.css';
 import useStore from '../../hooks/store';
-import { RegisterModal } from '../register-modal/register-modal';
 
 interface LoginFormProps {
   onLoginSuccess: (token: string) => void;
@@ -12,7 +11,6 @@ interface LoginFormProps {
 export const LoginForm = ({ onLoginSuccess, onRegisterClick }: LoginFormProps) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [showRegister, setShowRegister] = useState(false);
   const store = useStore();
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -31,43 +29,66 @@ export const LoginForm = ({ onLoginSuccess, onRegisterClick }: LoginFormProps) =
   };
 
   return (
-    <>
-      <form onSubmit={handleSubmit}>
-        <h2>Login</h2>
-
-        <div>
-          <label>Email:</label>
-          <input
-            type="email"
-            value={email}
-            onChange={e => setEmail(e.target.value)}
-            required
-          />
+    <div className={s.whatsappContainer}>
+      <div className={s.loginCard}>
+        <div className={s.logoSection}>
+          <div className={s.logoIcon}>🤖</div>
+          <h1 className={s.appTitle}>High Capital Chat</h1>
+          <p className={s.appSubtitle}>Faça login para continuar</p>
         </div>
 
-        <div>
-          <label>Senha:</label>
-          <input
-            type="password"
-            value={password}
-            onChange={e => setPassword(e.target.value)}
-            required
-          />
-        </div>
+        <form onSubmit={handleSubmit} className={s.loginForm}>
+          <div className={s.inputGroup}>
+            <label htmlFor="email" className={s.inputLabel}>Email</label>
+            <input
+              id="email"
+              type="email"
+              value={email}
+              onChange={e => setEmail(e.target.value)}
+              className={s.whatsappInput}
+              placeholder="Digite seu email"
+              required
+            />
+          </div>
 
-        {store?.error && <p style={{ color: 'red' }}>{store?.error}</p>}
+          <div className={s.inputGroup}>
+            <label htmlFor="password" className={s.inputLabel}>Senha</label>
+            <input
+              id="password"
+              type="password"
+              value={password}
+              onChange={e => setPassword(e.target.value)}
+              className={s.whatsappInput}
+              placeholder="Digite sua senha"
+              required
+            />
+          </div>
 
-        <button type="submit">Entrar</button>
+          {store?.error && (
+            <div className={s.errorMessage}>
+              <span>⚠️</span>
+              <p>{store?.error}</p>
+            </div>
+          )}
 
-        <p style={{ textAlign: 'center' }}>
-          Ainda não tem conta?{' '}
-          <button type="button" onClick={onRegisterClick} style={{ color: '#0077ff', background: 'none', border: 'none', cursor: 'pointer' }}>
-            Criar conta
+          <button type="submit" className={s.loginButton}>
+            Entrar
           </button>
-        </p>
-      </form>
 
-      {showRegister && <RegisterModal onClose={() => setShowRegister(false)} />}
-    </>
+          <div className={s.registerSection}>
+            <p className={s.registerText}>
+              Ainda não tem conta?
+            </p>
+            <button 
+              type="button" 
+              onClick={onRegisterClick} 
+              className={s.registerButton}
+            >
+              Criar conta
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
   );
 };

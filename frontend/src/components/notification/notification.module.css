@@ -1,0 +1,104 @@
+/* Notificações no estilo WhatsApp */
+.whatsappNotification,
+.whatsappNotificationError {
+  position: fixed;
+  left: 50%;
+  transform: translateX(-50%);
+  top: -100px;
+  padding: 16px 24px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-weight: 600;
+  font-size: 14px;
+  z-index: 9999;
+  transition: top 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+  backdrop-filter: blur(10px);
+  min-width: 300px;
+  max-width: 90vw;
+}
+
+/* Notificação de sucesso */
+.whatsappNotification {
+  background: linear-gradient(135deg, #25D366 0%, #128C7E 100%);
+  color: white;
+  border-left: 4px solid #ffffff;
+}
+
+/* Notificação de erro */
+.whatsappNotificationError {
+  background: linear-gradient(135deg, #ff6b6b 0%, #ee5a52 100%);
+  color: white;
+  border-left: 4px solid #ffffff;
+}
+
+/* Ícone da notificação */
+.notificationIcon {
+  font-size: 18px;
+  flex-shrink: 0;
+}
+
+/* Texto da notificação */
+.notificationText {
+  flex: 1;
+  text-align: center;
+  line-height: 1.4;
+}
+
+/* Animações */
+@keyframes slideFromTop {
+  from {
+    transform: translateX(-50%) translateY(-100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(-50%) translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slideToTop {
+  from {
+    transform: translateX(-50%) translateY(0);
+    opacity: 1;
+  }
+  to {
+    transform: translateX(-50%) translateY(-100%);
+    opacity: 0;
+  }
+}
+
+/* Estados de animação */
+.whatsappNotification[style*="top: 20"],
+.whatsappNotificationError[style*="top: 20"] {
+  animation: slideFromTop 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+  .whatsappNotification,
+  .whatsappNotificationError {
+    min-width: 280px;
+    padding: 14px 20px;
+    font-size: 13px;
+  }
+  
+  .notificationIcon {
+    font-size: 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  .whatsappNotification,
+  .whatsappNotificationError {
+    min-width: 260px;
+    padding: 12px 16px;
+    font-size: 12px;
+    left: 20px;
+    right: 20px;
+    transform: none;
+    width: calc(100% - 40px);
+  }
+}

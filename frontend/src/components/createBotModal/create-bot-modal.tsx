@@ -24,7 +24,6 @@ export function CreateBotModal({ onClose, onSuccess }: CreateBotModalProps) {
       return;
     }
 
-
     setLoading(true);
 
     try {
@@ -39,39 +38,63 @@ export function CreateBotModal({ onClose, onSuccess }: CreateBotModalProps) {
   };
 
   return (
-    <div className={s.overlay}>
-      <div className={s.modal}>
-        <h2 className={s.title}>Criar Novo Bot</h2>
+    <div className={s.whatsappOverlay}>
+      <div className={s.whatsappModal}>
+        <div className={s.modalHeader}>
+          <div className={s.modalIcon}>🤖</div>
+          <h2 className={s.modalTitle}>Criar Novo Bot</h2>
+          <p className={s.modalSubtitle}>Configure seu assistente virtual</p>
+        </div>
 
-        <form onSubmit={handleSubmit} className={s.form}>
-          <label htmlFor="botName">Nome do Bot</label>
-          <input
-            id="botName"
-            type="text"
-            placeholder="Ex: Assistente Virtual"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-            required
-          />
+        <form onSubmit={handleSubmit} className={s.createForm}>
+          <div className={s.inputGroup}>
+            <label htmlFor="botName" className={s.inputLabel}>Nome do Bot</label>
+            <input
+              id="botName"
+              type="text"
+              placeholder="Ex: Assistente Virtual"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              className={s.whatsappInput}
+              required
+            />
+          </div>
 
-          <label htmlFor="botContext">Contexto do Bot</label>
-          <textarea
-            id="botContext"
-            placeholder="Ex: Ajuda com agendamentos médicos"
-            value={context}
-            onChange={(e) => setContext(e.target.value)}
-            required
-            rows={4}
-          />
+          <div className={s.inputGroup}>
+            <label htmlFor="botContext" className={s.inputLabel}>Contexto do Bot</label>
+            <textarea
+              id="botContext"
+              placeholder="Ex: Ajuda com agendamentos médicos, informações sobre produtos, suporte ao cliente..."
+              value={context}
+              onChange={(e) => setContext(e.target.value)}
+              className={s.whatsappTextarea}
+              required
+              rows={4}
+            />
+          </div>
 
-          {error && <p className={s.error}>{error}</p>}
+          {error && (
+            <div className={s.errorMessage}>
+              <span>⚠️</span>
+              <p>{error}</p>
+            </div>
+          )}
 
-          <div className={s.buttons}>
-            <button type="button" onClick={onClose} className={s.cancel}>
+          <div className={s.modalButtons}>
+            <button 
+              type="button" 
+              onClick={onClose} 
+              className={s.cancelButton}
+              disabled={loading}
+            >
               Cancelar
             </button>
-            <button type="submit" disabled={loading}>
-              {loading ? 'Criando...' : 'Criar'}
+            <button 
+              type="submit" 
+              className={s.createButton}
+              disabled={loading}
+            >
+              {loading ? 'Criando...' : 'Criar Bot'}
             </button>
           </div>
         </form>
