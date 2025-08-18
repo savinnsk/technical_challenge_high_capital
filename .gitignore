@@ -8,3 +8,4 @@
 **/build
 **/**db-wal
 **/**db-shm
+backend/Api.Application/frontend
